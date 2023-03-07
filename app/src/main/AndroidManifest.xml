@@ -15,6 +15,9 @@
         android:theme="@style/Theme.NaeNaeKiosk"
         tools:targetApi="31">
         <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+        <activity
             android:name=".ManageWaitingActivity"
             android:exported="false" />
         <activity

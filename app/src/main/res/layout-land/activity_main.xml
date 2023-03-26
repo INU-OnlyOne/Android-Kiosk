@@ -19,18 +19,20 @@
         android:text="내 자리 내놔!"
         android:textAlignment="center"
         android:textColor="@color/INUBlue"
-        android:textSize="34sp" />
+        android:textSize="48sp" />
 
     <Button
         android:id="@+id/start_waiting_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="영업 시작" />
+        android:text="영업 시작"
+        android:textSize="34sp" />
 
     <Button
         android:id="@+id/button8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="가게 관리" />
+        android:text="가게 관리"
+        android:textSize="34sp" />
 
 </LinearLayout>

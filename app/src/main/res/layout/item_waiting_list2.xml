@@ -13,9 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_margin="7dp"
+        android:gravity="center"
         android:text="13"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
@@ -38,7 +39,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="010-1234-5678"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -52,7 +54,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5sp"
                 android:text="#창가석"
-                android:textColor="@color/INUBlue" />
+                android:textColor="@color/INUBlue"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/keyword2"
@@ -60,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5sp"
                 android:text="#테라스석"
-                android:textColor="@color/INUBlue" />
+                android:textColor="@color/INUBlue"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/keyword3"
@@ -68,7 +72,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5sp"
                 android:text="#유아의자"
-                android:textColor="@color/INUBlue" />
+                android:textColor="@color/INUBlue"
+                android:textSize="20sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -83,10 +88,13 @@
         android:backgroundTint="@color/INUYellow"
         android:minWidth="0dp"
         android:minHeight="0dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
+        android:paddingStart="15dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="5dp"
         android:text="입장\n완료"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button2"
@@ -102,10 +110,13 @@
         android:backgroundTint="#F44336"
         android:minWidth="0dp"
         android:minHeight="0dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
+        android:paddingStart="15dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="5dp"
         android:text="타임\n아웃"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

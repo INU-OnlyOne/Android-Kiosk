@@ -18,7 +18,7 @@ class HomeActivity : AppCompatActivity() {
             val intent= Intent(this, WaitingActivity::class.java)
             startActivity(intent)
         }
-        binding.maganeButton!!.setOnClickListener {
+        binding.manageButton!!.setOnClickListener {
             //todo 비번 입력 후 대기열 관리 페이지로 이동
         }
     }

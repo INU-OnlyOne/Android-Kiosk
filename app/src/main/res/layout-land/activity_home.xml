@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/INUYellow">
 
     <ImageView
-        android:id="@+id/maganeButton"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:id="@+id/manageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,8 +28,8 @@
 
     <ImageView
         android:id="@+id/logoImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,50 +50,45 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:fontFamily="@font/ddans_medium"
-            android:gravity="right"
             android:text="현재"
+            android:textAlignment="viewEnd"
             android:textColor="#000000"
-            android:textSize="48sp"
+            android:textSize="60sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/totalWaiting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:fontFamily="@font/ddans_bold"
             android:text="23"
             android:textColor="#FF9900"
-            android:textSize="55sp"
+            android:textSize="75sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginEnd="10dp"
             android:fontFamily="@font/ddans_medium"
             android:text="팀"
             android:textColor="#FF9900"
-            android:textSize="55sp"
+            android:textSize="75sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="1"
             android:fontFamily="@font/ddans_medium"
-            android:gravity="left"
             android:text="대기중"
             android:textColor="#000000"
-            android:textSize="48sp"
+            android:textSize="60sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -111,7 +107,7 @@
         android:paddingBottom="10dp"
         android:text="대기하러 가기"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

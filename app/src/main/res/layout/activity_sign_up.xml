@@ -24,7 +24,7 @@
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="80dp"
                 app:srcCompat="@drawable/onlyone_logo" />
 
             <TextView
@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="내 자리 내놔 사장님 등록"
                 android:textColor="@color/INUBlue"
-                android:textSize="20sp" />
+                android:textSize="28sp" />
 
             <LinearLayout
                 android:id="@+id/inputInfoBox"
@@ -51,7 +51,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="아이디"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/inputId"
@@ -61,7 +62,7 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:padding="10dp"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/idWarning"
@@ -70,7 +71,7 @@
                     android:layout_margin="5dp"
                     android:text="이미 사용 중인 아이디입니다."
                     android:textColor="#FF0000"
-                    android:textSize="12sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -78,7 +79,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="비밀번호"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/inputPW"
@@ -89,7 +91,7 @@
                     android:ems="10"
                     android:inputType="textPassword"
                     android:padding="10dp"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/textView12"
@@ -97,7 +99,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="비밀번호 확인"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/inputPW2"
@@ -107,7 +110,7 @@
                     android:ems="10"
                     android:inputType="textPassword"
                     android:padding="10dp"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/pwWarning"
@@ -116,7 +119,7 @@
                     android:layout_margin="5dp"
                     android:text="비밀번호가 일치하지 않습니다."
                     android:textColor="#FF0000"
-                    android:textSize="12sp" />
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -134,7 +137,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="가게 정보 확인"
                     android:textColor="#000000"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -143,7 +146,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="사업자 등록 번호"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/editTextNumber"
@@ -154,7 +158,7 @@
                     android:ems="10"
                     android:inputType="number"
                     android:padding="10dp"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/textView15"
@@ -162,7 +166,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="개업 일자"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/editTextDate"
@@ -174,14 +179,15 @@
                     android:hint="YYYYMMDD"
                     android:inputType="date"
                     android:padding="10dp"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/textView16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="대표자 성명1"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/editTextTextPersonName6"
@@ -192,7 +198,7 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:padding="10dp"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/textView17"
@@ -200,7 +206,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="대표자 성명2"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/editTextTextPersonName7"
@@ -212,13 +219,14 @@
                     android:hint="대표자 성명 1이 한글이 아닌 경우, 이에 대한 한글명"
                     android:inputType="textPersonName"
                     android:padding="10dp"
-                    android:textSize="16sp" />
+                    android:textSize="24sp" />
 
                 <Button
                     android:id="@+id/button6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="사업자 정보 확인" />
+                    android:text="사업자 정보 확인"
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <Button
@@ -226,7 +234,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="회원가입" />
+                android:text="회원가입"
+                android:textSize="20sp" />
 
 
         </LinearLayout>

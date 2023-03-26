@@ -5,7 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/INUYellow">
-
+    <ImageView
+        android:id="@+id/manageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_lock" />
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -18,8 +26,8 @@
 
     <ImageView
         android:id="@+id/logoImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +54,7 @@
             android:text="현재"
             android:textAlignment="viewEnd"
             android:textColor="#000000"
-            android:textSize="48sp"
+            android:textSize="60sp"
             android:textStyle="bold" />
 
         <TextView
@@ -56,7 +64,7 @@
             android:fontFamily="@font/ddans_bold"
             android:text="23"
             android:textColor="#FF9900"
-            android:textSize="55sp"
+            android:textSize="75sp"
             android:textStyle="bold" />
 
         <TextView
@@ -67,7 +75,7 @@
             android:fontFamily="@font/ddans_medium"
             android:text="팀"
             android:textColor="#FF9900"
-            android:textSize="55sp"
+            android:textSize="75sp"
             android:textStyle="bold" />
 
         <TextView
@@ -78,7 +86,7 @@
             android:fontFamily="@font/ddans_medium"
             android:text="대기중"
             android:textColor="#000000"
-            android:textSize="48sp"
+            android:textSize="60sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -97,7 +105,7 @@
         android:paddingBottom="10dp"
         android:text="대기하러 가기"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

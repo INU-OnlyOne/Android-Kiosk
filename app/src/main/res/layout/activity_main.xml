@@ -3,18 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="15dp">
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_margin="10dp"
         app:srcCompat="@drawable/onlyone_logo" />
 
     <TextView
         android:id="@+id/textView23"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:fontFamily="@font/ddans_medium"
         android:text="내 자리 내놔!"
         android:textAlignment="center"
@@ -25,6 +28,9 @@
         android:id="@+id/start_waiting_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/background_round_rectangular"
+        android:fontFamily="@font/ddans_light"
         android:text="영업 시작"
         android:textSize="34sp" />
 
@@ -32,6 +38,9 @@
         android:id="@+id/button8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/background_round_rectangular"
+        android:fontFamily="@font/ddans_light"
         android:text="가게 관리"
         android:textSize="34sp" />
 

@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.startWaitingButton.setOnClickListener {
+            //todo 영업 시작하는 코드 작성
             val intent= Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }

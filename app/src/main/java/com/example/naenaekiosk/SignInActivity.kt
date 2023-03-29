@@ -21,6 +21,7 @@ class SignInActivity : AppCompatActivity(), ConfirmDialogInterface {
 
         userInfo = getSharedPreferences("userInfo", 0)
         userInfo.edit().putString("userId", "0").apply()
+        userInfo.edit().putString("userPIN", "0000").apply()
         userId = userInfo.getString("userInfo", "2")!!.toLong()
 
         binding.signUp.setOnClickListener {
@@ -32,9 +33,11 @@ class SignInActivity : AppCompatActivity(), ConfirmDialogInterface {
             //todo 로그인 정보 확인해서 isMember에 넘기기
 
             if(isMember){
-                //유저 정보아이디 저장
+                //todo 유저 정보아이디 저장
                 var userId=binding.editTextTextPersonName.text.toString()
                 userInfo.edit().putString("userId", userId).apply()
+                //todo 유저 핀 정보 수정
+                userInfo.edit().putString("userPIN", "1234").apply()
                 val intent= Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()

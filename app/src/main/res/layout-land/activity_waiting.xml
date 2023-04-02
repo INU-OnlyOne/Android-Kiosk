@@ -112,11 +112,14 @@
                         android:id="@+id/editTextPhone3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
+                        android:layout_weight="0.6"
                         android:background="@drawable/background_round_rectangular"
                         android:ems="10"
+                        android:gravity="center"
                         android:inputType="phone"
-                        android:padding="10dp" />
+                        android:maxLength="3"
+                        android:padding="10dp"
+                        android:text="010" />
 
                     <TextView
                         android:id="@+id/textView24"
@@ -128,13 +131,15 @@
                         android:textSize="34sp" />
 
                     <EditText
-                        android:id="@+id/editTextPhone2"
+                        android:id="@+id/editTextPhone1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.35"
+                        android:layout_weight="1"
                         android:background="@drawable/background_round_rectangular"
                         android:ems="10"
+                        android:gravity="center"
                         android:inputType="phone"
+                        android:maxLength="4"
                         android:padding="10dp" />
 
                     <TextView
@@ -147,13 +152,15 @@
                         android:textSize="34sp" />
 
                     <EditText
-                        android:id="@+id/editTextPhone"
+                        android:id="@+id/editTextPhone2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.35"
+                        android:layout_weight="1"
                         android:background="@drawable/background_round_rectangular"
                         android:ems="10"
+                        android:gravity="center"
                         android:inputType="phone"
+                        android:maxLength="4"
                         android:padding="10dp" />
                 </LinearLayout>
 

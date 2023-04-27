@@ -1,6 +1,7 @@
 package com.example.naenaekiosk
 
 import android.graphics.Typeface
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -11,10 +12,20 @@ import android.text.Spanned
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.annotation.RequiresApi
 import com.example.naenaekiosk.databinding.ActivityWaitingBinding
+import com.example.naenaekiosk.retrofit.API
+import com.example.naenaekiosk.retrofit.AddWaiting
+import com.example.naenaekiosk.retrofit.IRetrofit
+import com.example.naenaekiosk.retrofit.RetrofitClient
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import retrofit2.Call
+import retrofit2.Response
 
 class WaitingActivity : AppCompatActivity(), ConfirmDialogInterface {
     private lateinit var binding: ActivityWaitingBinding
@@ -22,7 +33,10 @@ class WaitingActivity : AppCompatActivity(), ConfirmDialogInterface {
     private var phone1="0000"
     private var phone2="0000"
     private var phone3="010"
-
+    var numberOfPeople=2
+    private var searKeyword=""
+    private var isSeatKeywordSelected=false
+    private var resId="000-000-0000" //todo resid
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =  ActivityWaitingBinding.inflate(layoutInflater)
@@ -51,9 +65,9 @@ class WaitingActivity : AppCompatActivity(), ConfirmDialogInterface {
             }
             override fun afterTextChanged(p0: Editable?) {}
         })
-        var numberOfPeople=2
-        var spinnerData=resources.getStringArray(R.array.spinner_array)
-        var adapter=ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, spinnerData)
+
+        val spinnerData=resources.getStringArray(R.array.spinner_array)
+        val adapter=ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, spinnerData)
         binding.spinner!!.adapter=adapter
         binding.spinner!!.onItemSelectedListener=object :AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -75,14 +89,40 @@ class WaitingActivity : AppCompatActivity(), ConfirmDialogInterface {
         builder.setSpan(StyleSpan(Typeface.BOLD), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         builder.setSpan(ForegroundColorSpan(resources.getColor(R.color.INUYellow)), 7, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         binding.textView20!!.text = builder
+        binding.chipGroup!!.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                binding.seatKeyword1!!.id->searKeyword= binding.seatKeyword1!!.text.toString()
+                binding.seatKeyword2!!.id->searKeyword=binding.seatKeyword2!!.text.toString()
+                binding.seatKeyword3!!.id->searKeyword=binding.seatKeyword3!!.text.toString()
+                binding.seatKeyword4!!.id->searKeyword=binding.seatKeyword4!!.text.toString()
+                binding.seatKeyword5!!.id->searKeyword=binding.seatKeyword5!!.text.toString()
+                binding.seatKeyword6!!.id->searKeyword=binding.seatKeyword6!!.text.toString()
+                binding.seatKeyword7!!.id->searKeyword=binding.seatKeyword7!!.text.toString()
+                binding.seatKeyword8!!.id->searKeyword=binding.seatKeyword8!!.text.toString()
+            }
+            isSeatKeywordSelected=true
+            binding.checkBox!!.isChecked=false
+        }
+        binding.checkBox!!.setOnClickListener {
+            if(binding.checkBox!!.isChecked) {
+                searKeyword=""
+                isSeatKeywordSelected=true
+            }
+            else {
+                isSeatKeywordSelected=false
+            }
+        }
         binding.waitingButton!!.setOnClickListener {
-            // todo 조건 확인 코드 필요
-            /*
-            dialog1 = CustomDialog(this, "대기를 신청하시겠습니까?", 0, 0)
-            dialog1.isCancelable = false
-            dialog1.show(this.supportFragmentManager, "ConfirmDialog")
-
-             */
+            if(isSeatKeywordSelected){ //조건충족
+                dialog1 = CustomDialog(this, "인원: ${numberOfPeople}\n키워드:${searKeyword}\n대기를 신청하시겠습니까?", 0, 0)
+                dialog1.isCancelable = false
+                dialog1.show(this.supportFragmentManager, "ConfirmDialog")
+            }
+            else{ //조건 미충족
+                dialog1 = CustomDialog(this, "인원과 키워드를 선택해주세요.", 0, 1)
+                dialog1.isCancelable = true
+                dialog1.show(this.supportFragmentManager, "ConfirmDialog")
+            }
         }
 
         binding.backButton!!.setOnClickListener {
@@ -90,19 +130,45 @@ class WaitingActivity : AppCompatActivity(), ConfirmDialogInterface {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onYesButtonClick(num: Int, theme: Int) {
         when(num){
             0->{
-                //todo 대기 신청 연결
+                val current = LocalDateTime.now()
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                val date = current.format(formatter)
+                addWaiting(AddWaiting("${phone3}-${phone1}-${phone2}" , resId, numberOfPeople, date, searKeyword, false))
                 dialog1.dismiss()
-                // todo 작성 완료 팝업. 나중에 레트로핏 안으로 옮기기
-                val dialog = CustomDialog(this, "대기 신청이 완료되었습니다.", 0, 1)
+            }
+        }
+    }
+    private fun addWaiting(addWaiting: AddWaiting){
+        val iRetrofit : IRetrofit? = RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
+        val call = iRetrofit?.addWaiting(addWaiting = addWaiting) ?:return
+
+        call.enqueue(object : retrofit2.Callback<AddWaiting> {
+
+            override fun onResponse(call: Call<AddWaiting>, response: Response<AddWaiting>) {
+                Log.d("hy", addWaiting.toString())
+                Log.d("retrofit", "대기 신청 - 응답 성공 / t : ${response.raw()} ${response.body()}")
+                val dialog = CustomDialog(this@WaitingActivity, "대기 신청이 완료되었습니다.", 0, 1)
                 dialog.isCancelable = true
-                dialog.show(this.supportFragmentManager, "ConfirmDialog")
+                dialog.show(this@WaitingActivity.supportFragmentManager, "ConfirmDialog")
                 Handler(Looper.getMainLooper()).postDelayed({
                     finish()
                 }, 500)
             }
-        }
+            override fun onFailure(call: Call<AddWaiting>, t: Throwable) {
+                Log.d("retrofit", "대기 신청 - 한식 응답 실패 / t: $t")
+                val dialog = CustomDialog(this@WaitingActivity, "잠시 후 다시 실행해주세요.", 0, 1)
+                dialog.isCancelable = true
+                dialog.show(this@WaitingActivity.supportFragmentManager, "ConfirmDialog")
+                Handler(Looper.getMainLooper()).postDelayed({
+                    finish()
+                }, 500)
+            }
+        })
     }
 }
+
+

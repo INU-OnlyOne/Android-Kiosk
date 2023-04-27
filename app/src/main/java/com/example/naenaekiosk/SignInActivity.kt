@@ -10,7 +10,7 @@ import kotlin.properties.Delegates
 class SignInActivity : AppCompatActivity(), ConfirmDialogInterface {
 
     private lateinit var binding: ActivitySignInBinding
-    private var userId by Delegates.notNull<Long>()
+    private var userId =""
     lateinit var userInfo: SharedPreferences
     private var isMember=true
 
@@ -20,9 +20,9 @@ class SignInActivity : AppCompatActivity(), ConfirmDialogInterface {
         setContentView(binding.root)
 
         userInfo = getSharedPreferences("userInfo", 0)
-        userInfo.edit().putString("userId", "0").apply()
-        userInfo.edit().putString("userPIN", "0000").apply()
-        userId = userInfo.getString("userInfo", "2")!!.toLong()
+        userInfo.edit().putString("userId", "032-811-7877").apply()
+        userInfo.edit().putString("userPIN", "pw7877").apply()
+        userId = userInfo.getString("userInfo", "032-811-7877").toString()
 
         binding.signUp.setOnClickListener {
             val intent= Intent(this, SignUpActivity::class.java)

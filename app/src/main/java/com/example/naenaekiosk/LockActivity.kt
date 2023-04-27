@@ -9,7 +9,6 @@ import com.example.naenaekiosk.databinding.ActivityLockBinding
 
 class LockActivity : AppCompatActivity(), ConfirmDialogInterface{
 
-
     private lateinit var binding: ActivityLockBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

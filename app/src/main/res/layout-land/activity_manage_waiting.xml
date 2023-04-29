@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/INUBlue"
-    android:padding="15dp">
+    android:padding="25dp">
 
     <TextView
         android:id="@+id/textView2"
@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="10dp"
+        android:fontFamily="@font/ddans_light"
         android:text="대기 목록"
         android:textColor="#FFFFFF"
         android:textSize="48sp"
@@ -26,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:fontFamily="@font/ddans_light"
         android:text="호출 목록"
         android:textColor="#FFFFFF"
         android:textSize="48sp"
@@ -57,8 +59,8 @@
         android:id="@+id/view"
         android:layout_width="2dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/recyclerView2"
@@ -69,6 +71,7 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/background_round_rectangular"
         android:text="대기 마감"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"

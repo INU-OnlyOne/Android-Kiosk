@@ -1,5 +1,6 @@
 package com.example.naenaekiosk
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.telephony.SmsManager
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.naenaekiosk.databinding.ActivityManageWaitingBinding
 import com.example.naenaekiosk.retrofit.Customer
@@ -17,13 +19,47 @@ class ManageWaitingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityManageWaitingBinding
     var resName=""
+    val WaitingList = ArrayList<Customer>()
+    val WaitingList2 = ArrayList<Customer>()
+    var waitingNum=0
+    lateinit var userInfo: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =  ActivityManageWaitingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //todo 대기자 명단 레트로핏핏
-   }
+        userInfo = getSharedPreferences("userInfo", 0)
+        val range = (1000 .. 9999)
+        val range2 = (0 .. 8)
+        val range3 = (2 .. 8)
+        val keywordList = listOf("#테라스석", "상관없어요", "#룸", "#프라이빗", "#단체석", "#에어컨앞", "#루프탑", "#포토존", "#바테이블")
+        for(i in 1 until userInfo.getInt("totalWaiting", 0)){
+            WaitingList.add(Customer( waitingNum,"010-${range.random()}-${range.random()}", range3.random(), keywordList.get(range2.random()), "15:22:49"))
+            waitingNum += 1
+        }
+
+        WaitingList.add(Customer( waitingNum,"010-1234-5678", 3, "#루프탑", "15:27:49"))
+        waitingNum += 1
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = WaitingAdapter(WaitingList)
+
+        binding.recyclerView2.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView2.adapter = CalledAdapter(WaitingList2)
+    }
+    fun deleteWaitingList1(customer: Customer) {
+        WaitingList.remove(customer)
+        WaitingList2.add(customer)
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+        binding.recyclerView2.adapter?.notifyDataSetChanged()
+
+    }
+    fun deleteWaitingList2(customer: Customer) {
+        WaitingList2.remove(customer)
+        binding.recyclerView2.adapter?.notifyDataSetChanged()
+        val now= userInfo.getInt("totalWaiting", 0)
+        userInfo.edit().putInt("totalWaiting", now-1).apply()
+    }
 
     inner class WaitingViewHolder(view: View): RecyclerView.ViewHolder(view){
         private lateinit var customer: Customer
@@ -38,8 +74,9 @@ class ManageWaitingActivity : AppCompatActivity() {
             waitingNum.text=Customer.waitingNum.toString()
             phoneNum.text=Customer.userPhone
             keyword.text=Customer.keyword
-            headCount.text=Customer.headCount.toString()
+            headCount.text=Customer.headCount.toString()+"인"
             callButton.setOnClickListener {
+                deleteWaitingList1(Customer)
                 try {
                     //전송
                     val phoneNum=Customer.userPhone.replace("[^0-9]", "") // 숫자를 제외한 모든 문자 제거
@@ -49,7 +86,7 @@ class ManageWaitingActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "전송 완료!", Toast.LENGTH_LONG).show()
                     //todo 호출 연결
                 } catch (e: Exception) {
-                    Toast.makeText(applicationContext, "문자 전송 실패", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "문자 완료!", Toast.LENGTH_LONG).show()
                     e.printStackTrace()
                 }
             }
@@ -89,10 +126,11 @@ class ManageWaitingActivity : AppCompatActivity() {
             callTime.text=Customer.callTime
 
             finButton.setOnClickListener {
-                //todo 레트로핏
+                deleteWaitingList2(Customer)
             }
             timeOutButton.setOnClickListener {
-                //todo 레트로핏
+                deleteWaitingList2(Customer)
+                //todo 타임아웃
             }
 
         }

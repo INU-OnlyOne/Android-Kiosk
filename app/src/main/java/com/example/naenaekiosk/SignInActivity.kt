@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.naenaekiosk.databinding.ActivitySignInBinding
 import kotlin.properties.Delegates
 
@@ -22,7 +23,9 @@ class SignInActivity : AppCompatActivity(), ConfirmDialogInterface {
         userInfo = getSharedPreferences("userInfo", 0)
         userInfo.edit().putString("userId", "032-811-7877").apply()
         userInfo.edit().putString("userPIN", "pw7877").apply()
+        userInfo.edit().putInt("totalWaiting", 9).apply()
         userId = userInfo.getString("userInfo", "032-811-7877").toString()
+        Log.d("대기팀 - 로그인", userInfo.getInt("totalWaiting", 0).toString())
 
         binding.signUp.setOnClickListener {
             val intent= Intent(this, SignUpActivity::class.java)

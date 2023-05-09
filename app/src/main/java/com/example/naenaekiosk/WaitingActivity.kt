@@ -1,5 +1,6 @@
 package com.example.naenaekiosk
 
+import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -37,10 +38,14 @@ class WaitingActivity : AppCompatActivity(), ConfirmDialogInterface {
     private var searKeyword=""
     private var isSeatKeywordSelected=false
     private var resId="000-000-0000" //todo resid
+    lateinit var userInfo: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =  ActivityWaitingBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        userInfo = getSharedPreferences("userInfo", 0)
+        binding.textView14!!.text=userInfo.getInt("totalWaiting", 0).toString()
         binding.editTextPhone1?.addTextChangedListener(object:TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -137,8 +142,14 @@ class WaitingActivity : AppCompatActivity(), ConfirmDialogInterface {
                 val current = LocalDateTime.now()
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                 val date = current.format(formatter)
-                addWaiting(AddWaiting("${phone3}-${phone1}-${phone2}" , resId, numberOfPeople, date, searKeyword, false))
+                //addWaiting(AddWaiting("${phone3}-${phone1}-${phone2}" , resId, numberOfPeople, date, searKeyword, false))
+                userInfo = getSharedPreferences("userInfo", 0)
+                val now= userInfo.getInt("totalWaiting", 0)
+                Log.d("대기팀 - 대기신청 put 전", now.toString())
+                userInfo.edit().putInt("totalWaiting", now+1).apply()
+                Log.d("대기팀 - put 후", userInfo.getInt("totalWaiting", 0).toString())
                 dialog1.dismiss()
+                finish()
             }
         }
     }

@@ -238,7 +238,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#테라스석"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/seatKeyword2"
@@ -246,7 +247,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#룸"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/seatKeyword3"
@@ -254,7 +256,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#프라이빗"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/seatKeyword4"
@@ -262,7 +265,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#단체석"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/seatKeyword5"
@@ -270,7 +274,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#에어컨앞"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/seatKeyword6"
@@ -278,7 +283,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#루프탑"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/seatKeyword7"
@@ -286,7 +292,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#포토존"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/seatKeyword8"
@@ -294,7 +301,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#바테이블"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:visibility="gone" />
                 </com.google.android.material.chip.ChipGroup>
 
                 <LinearLayout

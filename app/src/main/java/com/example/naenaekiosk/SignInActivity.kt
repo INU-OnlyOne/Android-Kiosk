@@ -19,12 +19,16 @@ class SignInActivity : AppCompatActivity(), ConfirmDialogInterface {
         super.onCreate(savedInstanceState)
         binding =  ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        //연정식당 더미데이터
         userInfo = getSharedPreferences("userInfo", 0)
-        userInfo.edit().putString("userId", "032-811-7877").apply()
-        userInfo.edit().putString("userPIN", "pw7877").apply()
-        userInfo.edit().putInt("totalWaiting", 9).apply()
+        userInfo.edit().putString("resID", "18").apply()
+        userInfo.edit().putString("resPhNum", "032 525 3745").apply()
+        userInfo.edit().putString("resPW", "pw0002").apply()
+        userInfo.edit().putString("resPIN", "1234").apply()
+        userInfo.edit().putInt("totalWaiting", 0).apply()
+        userInfo.edit().putString("resKeyWord", "익숙한맛, 넓은주차장, 가족끼리").apply()
         userId = userInfo.getString("userInfo", "032-811-7877").toString()
+
         Log.d("대기팀 - 로그인", userInfo.getInt("totalWaiting", 0).toString())
 
         binding.signUp.setOnClickListener {

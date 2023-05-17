@@ -23,6 +23,7 @@ import com.example.naenaekiosk.retrofit.API
 import com.example.naenaekiosk.retrofit.AddWaiting
 import com.example.naenaekiosk.retrofit.IRetrofit
 import com.example.naenaekiosk.retrofit.RetrofitClient
+import com.google.android.material.chip.Chip
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import retrofit2.Call
@@ -37,15 +38,16 @@ class WaitingActivity : AppCompatActivity(), ConfirmDialogInterface {
     var numberOfPeople=2
     private var searKeyword=""
     private var isSeatKeywordSelected=false
-    private var resId="000-000-0000" //todo resid
     lateinit var userInfo: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =  ActivityWaitingBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         userInfo = getSharedPreferences("userInfo", 0)
-        binding.textView14!!.text=userInfo.getInt("totalWaiting", 0).toString()
+        binding.textView14!!.text=intent.getStringExtra("waitingNum").toString()
+
         binding.editTextPhone1?.addTextChangedListener(object:TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -94,6 +96,25 @@ class WaitingActivity : AppCompatActivity(), ConfirmDialogInterface {
         builder.setSpan(StyleSpan(Typeface.BOLD), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         builder.setSpan(ForegroundColorSpan(resources.getColor(R.color.INUYellow)), 7, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         binding.textView20!!.text = builder
+
+        var arr:List<String> =listOf("", "", "")
+        val keyword=userInfo.getString("resKeyWord", "").toString()
+        for (addr in keyword) {
+            val splitedAddr = keyword.split(", ")
+            arr = splitedAddr
+        }
+
+        var chipList: List<Chip?> = listOf(binding.seatKeyword1,binding.seatKeyword2, binding.seatKeyword3, binding.seatKeyword4, binding.seatKeyword5, binding.seatKeyword6, binding.seatKeyword7, binding.seatKeyword8)
+        var n=0
+        for(i in arr){
+            if(i!=", ") {
+                chipList[n]!!.text="#"+i
+                chipList[n]!!.visibility=View.VISIBLE
+                n+=1
+            }
+        }
+
+
         binding.chipGroup!!.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
                 binding.seatKeyword1!!.id->searKeyword= binding.seatKeyword1!!.text.toString()
@@ -142,14 +163,7 @@ class WaitingActivity : AppCompatActivity(), ConfirmDialogInterface {
                 val current = LocalDateTime.now()
                 val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                 val date = current.format(formatter)
-                //addWaiting(AddWaiting("${phone3}-${phone1}-${phone2}" , resId, numberOfPeople, date, searKeyword, false))
-                userInfo = getSharedPreferences("userInfo", 0)
-                val now= userInfo.getInt("totalWaiting", 0)
-                Log.d("대기팀 - 대기신청 put 전", now.toString())
-                userInfo.edit().putInt("totalWaiting", now+1).apply()
-                Log.d("대기팀 - put 후", userInfo.getInt("totalWaiting", 0).toString())
-                dialog1.dismiss()
-                finish()
+                addWaiting(AddWaiting("${phone3}-${phone1}-${phone2}" , userInfo.getString("resPhNum","").toString(), numberOfPeople, date, searKeyword, false))
             }
         }
     }

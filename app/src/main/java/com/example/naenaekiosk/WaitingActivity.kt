@@ -117,14 +117,14 @@ class WaitingActivity : AppCompatActivity(), ConfirmDialogInterface {
 
         binding.chipGroup!!.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
-                binding.seatKeyword1!!.id->searKeyword= binding.seatKeyword1!!.text.toString()
-                binding.seatKeyword2!!.id->searKeyword=binding.seatKeyword2!!.text.toString()
-                binding.seatKeyword3!!.id->searKeyword=binding.seatKeyword3!!.text.toString()
-                binding.seatKeyword4!!.id->searKeyword=binding.seatKeyword4!!.text.toString()
-                binding.seatKeyword5!!.id->searKeyword=binding.seatKeyword5!!.text.toString()
-                binding.seatKeyword6!!.id->searKeyword=binding.seatKeyword6!!.text.toString()
-                binding.seatKeyword7!!.id->searKeyword=binding.seatKeyword7!!.text.toString()
-                binding.seatKeyword8!!.id->searKeyword=binding.seatKeyword8!!.text.toString()
+                binding.seatKeyword1!!.id->searKeyword= binding.seatKeyword1!!.text.toString().replace("#", "")
+                binding.seatKeyword2!!.id->searKeyword=binding.seatKeyword2!!.text.toString().replace("#", "")
+                binding.seatKeyword3!!.id->searKeyword=binding.seatKeyword3!!.text.toString().replace("#", "")
+                binding.seatKeyword4!!.id->searKeyword=binding.seatKeyword4!!.text.toString().replace("#", "")
+                binding.seatKeyword5!!.id->searKeyword=binding.seatKeyword5!!.text.toString().replace("#", "")
+                binding.seatKeyword6!!.id->searKeyword=binding.seatKeyword6!!.text.toString().replace("#", "")
+                binding.seatKeyword7!!.id->searKeyword=binding.seatKeyword7!!.text.toString().replace("#", "")
+                binding.seatKeyword8!!.id->searKeyword=binding.seatKeyword8!!.text.toString().replace("#", "")
             }
             isSeatKeywordSelected=true
             binding.checkBox!!.isChecked=false

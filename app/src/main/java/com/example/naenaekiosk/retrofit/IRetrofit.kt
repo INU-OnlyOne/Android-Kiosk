@@ -21,4 +21,9 @@ interface IRetrofit {
     @POST("/kiosk/waitinginfo")
     fun waitingList(@Body resPhNum: resPhNum):Call<WaitList>
 
+    @POST("/kiosk/waiting/start")
+    fun startWaiting(@Body StartWaiting: StartWaiting):Call<StartWaiting>
+
+    @POST("/kiosk/waiting/end")
+    fun endWaiting(@Body EndWaiting: EndWaiting):Call<EndWaiting>
 }

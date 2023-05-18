@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ddans_bold"
-            android:text="23"
+            android:text="0"
             android:textColor="#FF9900"
             android:textSize="75sp"
             android:textStyle="bold" />

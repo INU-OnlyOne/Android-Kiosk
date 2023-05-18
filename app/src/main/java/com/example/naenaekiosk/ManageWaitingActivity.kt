@@ -1,6 +1,7 @@
 package com.example.naenaekiosk
 
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.telephony.SmsManager
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +18,8 @@ import com.example.naenaekiosk.databinding.ActivityManageWaitingBinding
 import com.example.naenaekiosk.retrofit.*
 import retrofit2.Call
 import retrofit2.Response
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class ManageWaitingActivity : AppCompatActivity() {
@@ -26,6 +30,7 @@ class ManageWaitingActivity : AppCompatActivity() {
     lateinit var resPhNum:String
     lateinit var userInfo: SharedPreferences
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =  ActivityManageWaitingBinding.inflate(layoutInflater)
@@ -34,6 +39,12 @@ class ManageWaitingActivity : AppCompatActivity() {
         resId= userInfo.getString("resID","0").toString()
         resPhNum= userInfo.getString("resPhNum","").toString()
         update()
+        binding.button3.setOnClickListener {
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ISO_TIME
+            val formatted = current.format(formatter)
+            endWaiting(EndWaiting(resPhNum, formatted))
+        }
     }
 
 
@@ -193,6 +204,23 @@ class ManageWaitingActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<String>, t: Throwable) {
                 Log.d("retrofit", "거절  - 응답 실패 / t: $t")
+
+            }
+        })
+    }
+    private fun endWaiting(EndWaiting: EndWaiting){
+        val iRetrofit : IRetrofit? = RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
+        val call = iRetrofit?.endWaiting(EndWaiting) ?:return
+
+        call.enqueue(object : retrofit2.Callback<EndWaiting> {
+
+            override fun onResponse(call: Call<EndWaiting>, response: Response<EndWaiting>) {
+                Log.d("retrofit", "대기 마감  - 응답 성공 / t : ${response.raw()} ${response.body()}")
+
+            }
+
+            override fun onFailure(call: Call<EndWaiting>, t: Throwable) {
+                Log.d("retrofit", "대기 마감  - 응답 실패 / t: $t")
 
             }
         })

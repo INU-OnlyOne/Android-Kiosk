@@ -57,3 +57,14 @@ data class WaitListItem(
 data class WaitList(
     val result:List<WaitListItem>
 )
+
+data class StartWaiting(
+    val resPhNum:String,
+    val startTime:String
+)
+
+
+data class EndWaiting(
+    val resPhNum:String,
+    val endTime:String
+)

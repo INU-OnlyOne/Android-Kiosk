@@ -3,8 +3,6 @@ package com.example.naenaekiosk
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.naenaekiosk.databinding.ActivityHomeBinding
@@ -37,6 +35,16 @@ class HomeActivity : AppCompatActivity() {
             intent.putExtra("waitingNum", num)
             startActivity(intent)
         }
+        Thread {
+            var i=0
+            while (!Thread.interrupted()) try {
+                Thread.sleep(60000) //1분 간격으로 실행
+                i=i+1
+                runOnUiThread { Log.d("hy" ,i.toString()) }
+            } catch (e: InterruptedException) {
+                // error
+            }
+        }.start()
     }
     private fun waitingList(resPhNum: resPhNum){
         val iRetrofit : IRetrofit? = RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
@@ -47,7 +55,7 @@ class HomeActivity : AppCompatActivity() {
             override fun onResponse(call: Call<WaitList>, response: Response<WaitList>) {
                 Log.d("retrofit", "대기 팀수 - 응답 성공 / t : ${response.raw()} ${response.body()}")
                 if(response.body()?.result.isNullOrEmpty())
-                    binding.totalWaiting.text="-"
+                    binding.totalWaiting.text="0"
                 else {
                     num=response.body()!!.result.size.toString()
                     binding.totalWaiting.text=num

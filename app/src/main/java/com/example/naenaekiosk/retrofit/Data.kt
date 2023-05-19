@@ -29,9 +29,12 @@ data class AcceptWaiting(
     val userPhone:String
 )
 
-data class RejectWaiting(
-    val resIdx:String,
-    val userPhone:String
+data class message(
+    val message:String
+)
+
+data class waitIndex(
+    val waitIndex:String
 )
 
 data class CallListItem(
@@ -50,7 +53,7 @@ data class WaitListItem(
     val WaitIndex:Int,
     val UserPhone:String,
     val WaitHeadcount:Int,
-    val keyword:String,
+    val WaitSeat:String,
     val WaitisAccepted:Int
 )
 

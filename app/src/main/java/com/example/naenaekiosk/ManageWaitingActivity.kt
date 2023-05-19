@@ -18,6 +18,7 @@ import com.example.naenaekiosk.databinding.ActivityManageWaitingBinding
 import com.example.naenaekiosk.retrofit.*
 import retrofit2.Call
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -60,7 +61,7 @@ class ManageWaitingActivity : AppCompatActivity() {
             this.customer=Customer
             waitingNum.text=Customer.WaitIndex .toString()
             phoneNum.text=Customer.UserPhone
-            keyword.text=Customer.keyword
+            keyword.text="#"+Customer.WaitSeat
             headCount.text=Customer.WaitHeadcount .toString()+"인"
             callButton.setOnClickListener {
 
@@ -70,8 +71,9 @@ class ManageWaitingActivity : AppCompatActivity() {
                     val smsManager: SmsManager = SmsManager.getDefault()
                     val txt="[내 자리 내놔]\n${resName} 입장이 얼마 남지 않았습니다. 가게 앞에서 대기해주세요!"
                     smsManager.sendTextMessage(phoneNum, null, txt, null, null)
+
                     Toast.makeText(applicationContext, "전송 완료!", Toast.LENGTH_LONG).show()
-                    //todo 호출 연결
+                    acceptWaiting(AcceptWaiting(Customer.WaitIndex.toString(), resPhNum, Customer.UserPhone))
                 } catch (e: Exception) {
                     Toast.makeText(applicationContext, "문자 전송 실패!", Toast.LENGTH_LONG).show()
                     e.printStackTrace()
@@ -104,19 +106,26 @@ class ManageWaitingActivity : AppCompatActivity() {
         private val finButton: Button =itemView.findViewById(R.id.button)
         private val timeOutButton: Button =itemView.findViewById(R.id.button2)
 
+        @RequiresApi(Build.VERSION_CODES.O)
         fun bind(Customer: CallListItem){
             this.customer=Customer
             waitingNum.text=Customer.WaitedIdx .toString()
             phoneNum.text=Customer.UserPhone
-            keyword.text=Customer.WaitSeat
-            headCount.text=Customer.WaitHeadcount.toString()
-            callTime.text=Customer.acceptedTime
+            keyword.text="#"+Customer.WaitSeat
+            headCount.text=Customer.WaitHeadcount.toString()+"인"
+
+            var arr:List<String> =listOf("", "", "")
+            for (addr in Customer.acceptedTime) {
+                val splitedAddr = Customer.acceptedTime.split("T", ".")
+                arr = splitedAddr
+            }
+            callTime.text=arr[1].toString()
 
             finButton.setOnClickListener {
-                acceptWaiting(AcceptWaiting(Customer.WaitedIdx.toString(), resPhNum, Customer.UserPhone))
+                enter(waitIndex(Customer.WaitedIdx.toString()))
             }
             timeOutButton.setOnClickListener {
-                rejectWaiting(RejectWaiting(resId, Customer.UserPhone))
+                rejectWaiting(waitIndex(Customer.WaitedIdx.toString()))
             }
 
         }
@@ -131,6 +140,7 @@ class ManageWaitingActivity : AppCompatActivity() {
 
         override fun getItemCount(): Int = list.size
 
+        @RequiresApi(Build.VERSION_CODES.O)
         override fun onBindViewHolder(holder: CalledViewHolder, position: Int) {
             val post = list[position]
             holder.bind(post)
@@ -178,32 +188,49 @@ class ManageWaitingActivity : AppCompatActivity() {
         val iRetrofit : IRetrofit? = RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
         val call = iRetrofit?.acceptWaiting(AcceptWaiting) ?:return
 
-        call.enqueue(object : retrofit2.Callback<String> {
+        call.enqueue(object : retrofit2.Callback<message> {
 
-            override fun onResponse(call: Call<String>, response: Response<String>) {
+            override fun onResponse(call: Call<message>, response: Response<message>) {
                 Log.d("retrofit", "호출  - 응답 성공 / t : ${response.raw()} ${response.body()}")
-
+                update()
             }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
+            override fun onFailure(call: Call<message>, t: Throwable) {
                 Log.d("retrofit", "호출  - 응답 실패 / t: $t")
 
             }
         })
     }
-    private fun rejectWaiting(RejectWaiting: RejectWaiting){
+    private fun rejectWaiting(waitIndex: waitIndex){
         val iRetrofit : IRetrofit? = RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
-        val call = iRetrofit?.rejectWaiting(RejectWaiting) ?:return
+        val call = iRetrofit?.rejectWaiting(waitIndex) ?:return
 
-        call.enqueue(object : retrofit2.Callback<String> {
+        call.enqueue(object : retrofit2.Callback<message> {
 
-            override fun onResponse(call: Call<String>, response: Response<String>) {
+            override fun onResponse(call: Call<message>, response: Response<message>) {
                 Log.d("retrofit", "거절  - 응답 성공 / t : ${response.raw()} ${response.body()}")
-
+                update()
             }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
+            override fun onFailure(call: Call<message>, t: Throwable) {
                 Log.d("retrofit", "거절  - 응답 실패 / t: $t")
+
+            }
+        })
+    }
+    private fun enter(waitIndex: waitIndex){
+        val iRetrofit : IRetrofit? = RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
+        val call = iRetrofit?.enter(waitIndex) ?:return
+
+        call.enqueue(object : retrofit2.Callback<message> {
+
+            override fun onResponse(call: Call<message>, response: Response<message>) {
+                Log.d("retrofit", "손님 입장  - 응답 성공 / t : ${response.raw()} ${response.body()}")
+                update()
+            }
+
+            override fun onFailure(call: Call<message>, t: Throwable) {
+                Log.d("retrofit", "손님 입장  - 응답 실패 / t: $t")
 
             }
         })
@@ -216,7 +243,8 @@ class ManageWaitingActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<EndWaiting>, response: Response<EndWaiting>) {
                 Log.d("retrofit", "대기 마감  - 응답 성공 / t : ${response.raw()} ${response.body()}")
-
+                Toast.makeText(applicationContext, "영업이 마감되었습니다.", Toast.LENGTH_LONG).show()
+                finish()
             }
 
             override fun onFailure(call: Call<EndWaiting>, t: Throwable) {

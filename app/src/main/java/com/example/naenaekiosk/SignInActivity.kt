@@ -26,7 +26,7 @@ class SignInActivity : AppCompatActivity(), ConfirmDialogInterface {
         userInfo.edit().putString("resPW", "pw0002").apply()
         userInfo.edit().putString("resPIN", "1234").apply()
         userInfo.edit().putInt("totalWaiting", 0).apply()
-        userInfo.edit().putString("resKeyWord", "챵가, 입구, 2층").apply()
+        userInfo.edit().putString("resKeyWord", "창가, 입구, 2층").apply()
         userId = userInfo.getString("userInfo", "032-811-7877").toString()
 
         Log.d("대기팀 - 로그인", userInfo.getInt("totalWaiting", 0).toString())

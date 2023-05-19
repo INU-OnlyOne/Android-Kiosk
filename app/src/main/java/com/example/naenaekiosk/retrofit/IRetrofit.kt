@@ -9,11 +9,14 @@ interface IRetrofit {
     @POST("/user/waiting/insert")
     fun addWaiting(@Body addWaiting: AddWaiting):Call<AddWaiting>
 
-    @POST("/kiosk/accept")
-    fun acceptWaiting(@Body AcceptWaiting: AcceptWaiting):Call<String>
+    @POST("/kiosk/accept") //손님 호출
+    fun acceptWaiting(@Body AcceptWaiting: AcceptWaiting):Call<message>
 
-    @POST("/kiosk/reject")
-    fun rejectWaiting(@Body RejectWaiting: RejectWaiting):Call<String>
+    @POST("/kiosk/reject") //타임아웃
+    fun rejectWaiting(@Body waitIndex: waitIndex):Call<message>
+
+    @POST("/kiosk/enter") //입장 완료
+    fun enter(@Body waitIndex: waitIndex):Call<message>
 
     @POST("/kiosk/waitedList")
     fun callList(@Body resPhNum: resPhNum):Call<CallList>

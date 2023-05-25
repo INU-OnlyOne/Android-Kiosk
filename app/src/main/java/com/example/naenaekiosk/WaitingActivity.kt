@@ -2,7 +2,6 @@ package com.example.naenaekiosk
 
 import android.content.SharedPreferences
 import android.graphics.Typeface
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -17,15 +16,10 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.annotation.RequiresApi
 import com.example.naenaekiosk.databinding.ActivityWaitingBinding
-import com.example.naenaekiosk.retrofit.API
-import com.example.naenaekiosk.retrofit.AddWaiting
-import com.example.naenaekiosk.retrofit.IRetrofit
-import com.example.naenaekiosk.retrofit.RetrofitClient
+import com.example.naenaekiosk.retrofit.*
 import com.google.android.material.chip.Chip
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+
 import retrofit2.Call
 import retrofit2.Response
 
@@ -139,6 +133,7 @@ class WaitingActivity : AppCompatActivity(), ConfirmDialogInterface {
             }
         }
         binding.waitingButton!!.setOnClickListener {
+
             if(isSeatKeywordSelected){ //조건충족
                 dialog1 = CustomDialog(this, "인원: ${numberOfPeople}\n키워드:${searKeyword}\n대기를 신청하시겠습니까?", 0, 0)
                 dialog1.isCancelable = false
@@ -156,35 +151,56 @@ class WaitingActivity : AppCompatActivity(), ConfirmDialogInterface {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onYesButtonClick(num: Int, theme: Int) {
         when(num){
             0->{
-                val current = LocalDateTime.now()
-                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-                val date = current.format(formatter)
-                addWaiting(AddWaiting("${phone3}-${phone1}-${phone2}" , userInfo.getString("resPhNum","").toString(), numberOfPeople, date, searKeyword, false))
+                addWaiting(AddWaiting( userInfo.getString("resPhNum","").toString(), "${phone3}-${phone1}-${phone2}", numberOfPeople,  searKeyword))
             }
         }
     }
     private fun addWaiting(addWaiting: AddWaiting){
         val iRetrofit : IRetrofit? = RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
-        val call = iRetrofit?.addWaiting(addWaiting = addWaiting) ?:return
+        val call = iRetrofit?.addWaiting(addWaiting) ?:return
+        Log.d("retrofit - hy" ,"${phone3}-${phone1}-${phone2} , ${userInfo.getString("resPhNum","").toString()}, $numberOfPeople,  $searKeyword")
+        call.enqueue(object : retrofit2.Callback<WaitingInfo> {
 
-        call.enqueue(object : retrofit2.Callback<AddWaiting> {
-
-            override fun onResponse(call: Call<AddWaiting>, response: Response<AddWaiting>) {
-                Log.d("hy", addWaiting.toString())
+            override fun onResponse(call: Call<WaitingInfo>, response: Response<WaitingInfo>) {
                 Log.d("retrofit", "대기 신청 - 응답 성공 / t : ${response.raw()} ${response.body()}")
-                val dialog = CustomDialog(this@WaitingActivity, "대기 신청이 완료되었습니다.", 0, 1)
-                dialog.isCancelable = true
-                dialog.show(this@WaitingActivity.supportFragmentManager, "ConfirmDialog")
-                Handler(Looper.getMainLooper()).postDelayed({
-                    finish()
-                }, 500)
+                if(response.body()!!.message.contains("한 곳")){
+                    val dialog = CustomDialog(this@WaitingActivity, "대기는 한 번에 한 곳만 신청 가능합니다.", 0, 1)
+                    dialog.isCancelable = true
+                    dialog.show(this@WaitingActivity.supportFragmentManager, "ConfirmDialog")
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        finish()
+                    }, 1000)
+                }
+                else if(response.body()!!.message.contains("시간")){
+                    val dialog = CustomDialog(this@WaitingActivity, "대기 가능 시간이 아닙니다.", 0, 1)
+                    dialog.isCancelable = true
+                    dialog.show(this@WaitingActivity.supportFragmentManager, "ConfirmDialog")
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        finish()
+                    }, 1000)
+                }
+                else if(response.body()!!.message.contains("완료")){
+                    val dialog = CustomDialog(this@WaitingActivity, "대기 신청이 완료되었습니다. ", 0, 1)
+                    dialog.isCancelable = true
+                    dialog.show(this@WaitingActivity.supportFragmentManager, "ConfirmDialog")
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        finish()
+                    }, 1000)
+                }
+                else{
+                    val dialog = CustomDialog(this@WaitingActivity, "잠시 후 다시 실행해주세요.", 0, 1)
+                    dialog.isCancelable = true
+                    dialog.show(this@WaitingActivity.supportFragmentManager, "ConfirmDialog")
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        finish()
+                    }, 1000)
+                }
             }
-            override fun onFailure(call: Call<AddWaiting>, t: Throwable) {
-                Log.d("retrofit", "대기 신청 - 한식 응답 실패 / t: $t")
+            override fun onFailure(call: Call<WaitingInfo>, t: Throwable) {
+                Log.d("retrofit", "대기 신청 - 응답 실패 / t: $t")
                 val dialog = CustomDialog(this@WaitingActivity, "잠시 후 다시 실행해주세요.", 0, 1)
                 dialog.isCancelable = true
                 dialog.show(this@WaitingActivity.supportFragmentManager, "ConfirmDialog")

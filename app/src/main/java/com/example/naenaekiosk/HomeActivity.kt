@@ -23,6 +23,7 @@ class HomeActivity : AppCompatActivity() {
 
         binding.waitingButton.setOnClickListener {
             val intent= Intent(this, WaitingActivity::class.java)
+            intent.putExtra("waitingNum", num)
             startActivity(intent)
         }
         userInfo = getSharedPreferences("userInfo", 0)
@@ -30,9 +31,7 @@ class HomeActivity : AppCompatActivity() {
         binding.totalWaiting.text=userInfo.getInt("totalWaiting", 0).toString()
 
         binding.manageButton!!.setOnClickListener {
-            //todo 비번 입력 후 대기열 관리 페이지로 이동
             val intent= Intent(this, LockActivity::class.java)
-            intent.putExtra("waitingNum", num)
             startActivity(intent)
         }
         Thread {

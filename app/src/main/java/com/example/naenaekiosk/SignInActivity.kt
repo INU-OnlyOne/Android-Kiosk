@@ -15,7 +15,7 @@ class SignInActivity : AppCompatActivity(), ConfirmDialogInterface {
     lateinit var userInfo: SharedPreferences
     private var isMember=true
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {0
         super.onCreate(savedInstanceState)
         binding =  ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)

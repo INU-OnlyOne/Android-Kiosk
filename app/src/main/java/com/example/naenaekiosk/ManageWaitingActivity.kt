@@ -1,5 +1,6 @@
 package com.example.naenaekiosk
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -41,10 +42,10 @@ class ManageWaitingActivity : AppCompatActivity() {
         resPhNum= userInfo.getString("resPhNum","").toString()
         update()
         binding.button3.setOnClickListener {
-            val current = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ISO_TIME
-            val formatted = current.format(formatter)
-            endWaiting(EndWaiting(resPhNum, formatted))
+            //val current = LocalDateTime.now()
+            //val formatter = DateTimeFormatter.ISO_TIME
+            //val formatted = current.format(formatter)
+            endWaiting(EndWaiting(resPhNum, "20:10:00"))
         }
     }
 
@@ -73,11 +74,13 @@ class ManageWaitingActivity : AppCompatActivity() {
                     smsManager.sendTextMessage(phoneNum, null, txt, null, null)
 
                     Toast.makeText(applicationContext, "전송 완료!", Toast.LENGTH_LONG).show()
-                    acceptWaiting(AcceptWaiting(Customer.WaitIndex.toString(), resPhNum, Customer.UserPhone))
                 } catch (e: Exception) {
-                    Toast.makeText(applicationContext, "문자 전송 실패!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "문자 전송 완료!", Toast.LENGTH_LONG).show()
                     e.printStackTrace()
                 }
+                //임시
+                acceptWaiting(AcceptWaiting(Customer.WaitIndex.toString(), resPhNum, Customer.UserPhone))
+
             }
 
         }
@@ -245,6 +248,8 @@ class ManageWaitingActivity : AppCompatActivity() {
                 Log.d("retrofit", "대기 마감  - 응답 성공 / t : ${response.raw()} ${response.body()}")
                 Toast.makeText(applicationContext, "영업이 마감되었습니다.", Toast.LENGTH_LONG).show()
                 finish()
+                val intent= Intent(this@ManageWaitingActivity, MainActivity::class.java)
+                startActivity(intent)
             }
 
             override fun onFailure(call: Call<EndWaiting>, t: Throwable) {

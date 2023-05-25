@@ -11,8 +11,12 @@ import com.example.naenaekiosk.databinding.ActivityMainBinding
 import com.example.naenaekiosk.retrofit.*
 import retrofit2.Call
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var resPhNum:String
@@ -26,10 +30,7 @@ class MainActivity : AppCompatActivity() {
         userInfo = getSharedPreferences("userInfo", 0)
         resPhNum= userInfo.getString("resPhNum","").toString()
         binding.startWaitingButton.setOnClickListener {
-            val current = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ISO_TIME
-            val formatted = current.format(formatter)
-            startWaiting(StartWaiting(resPhNum, formatted))
+            startWaiting(StartWaiting(resPhNum, "10:10:00"))
 
         }
     }

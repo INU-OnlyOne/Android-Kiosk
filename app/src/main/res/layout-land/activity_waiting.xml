@@ -26,12 +26,12 @@
                 android:id="@+id/waitingInfoBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/background_round_rectangular"
                 android:backgroundTint="#3CFCAF17"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="15dp">
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/textView7"
@@ -40,7 +40,7 @@
                     android:text="내 앞에"
                     android:textAlignment="viewEnd"
                     android:textColor="#000000"
-                    android:textSize="30sp" />
+                    android:textSize="26sp" />
 
                 <TextView
                     android:id="@+id/textView14"
@@ -59,13 +59,12 @@
                     android:text="팀이 있어요"
                     android:textAlignment="viewStart"
                     android:textColor="#000000"
-                    android:textSize="30sp" />
+                    android:textSize="26sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:orientation="vertical"
                 android:padding="15dp">
 
@@ -77,8 +76,8 @@
 
                     <ImageView
                         android:id="@+id/phoneImage"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_phone" />
 
@@ -90,7 +89,7 @@
                         android:layout_weight="1"
                         android:text="연락처 입력"
                         android:textColor="#000000"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -171,8 +170,8 @@
 
                     <ImageView
                         android:id="@+id/imageView11"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_people" />
 
@@ -184,7 +183,7 @@
                         android:layout_weight="1"
                         android:text="인원 선택"
                         android:textColor="#000000"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -202,8 +201,8 @@
 
                     <ImageView
                         android:id="@+id/imageView10"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="25dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_armchair" />
 
@@ -215,7 +214,7 @@
                         android:layout_weight="1"
                         android:text="좌석 선택"
                         android:textColor="#000000"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <CheckBox
@@ -223,7 +222,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="상관 없어요"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <com.google.android.material.chip.ChipGroup
@@ -326,7 +325,7 @@
                         android:layout_weight="1"
                         android:text="확인 사항"
                         android:textColor="#000000"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -340,7 +339,7 @@
                     android:bufferType="spannable"
                     android:text="※ 단체석은 6인 이상일 경우 이용 가능합니다. "
                     android:textColor="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textView22"
@@ -350,7 +349,7 @@
                     android:bufferType="spannable"
                     android:text="※ 좌석 미선택의 경우 랜덤으로 배정됩니다."
                     android:textColor="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textView23"
@@ -359,7 +358,7 @@
                     android:layout_marginTop="5dp"
                     android:text="※ 추가 사항은 가게로 직접 문의 바랍니다."
                     android:textColor="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -383,7 +382,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10sp"
-        android:layout_marginTop="20sp"
+        android:layout_marginTop="3dp"
         android:layout_marginRight="10sp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -407,7 +406,7 @@
             android:text="대기"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="34sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
     </RelativeLayout>

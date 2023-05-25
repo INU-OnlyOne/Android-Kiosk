@@ -6,8 +6,8 @@ import retrofit2.http.*
 
 interface IRetrofit {
 
-    @POST("/user/waiting/insert")
-    fun addWaiting(@Body addWaiting: AddWaiting):Call<AddWaiting>
+    @POST("/restaurant/waiting")
+    fun addWaiting(@Body addWaiting: AddWaiting):Call<WaitingInfo>
 
     @POST("/kiosk/accept") //손님 호출
     fun acceptWaiting(@Body AcceptWaiting: AcceptWaiting):Call<message>

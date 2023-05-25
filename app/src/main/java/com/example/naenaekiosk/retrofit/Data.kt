@@ -3,21 +3,16 @@ package com.example.naenaekiosk.retrofit
 import java.io.Serializable
 
 data class AddWaiting(
-    val UserPhone : String,
     val resPhNum : String,
-    val Waitheadcount : Int,
-    val WaitTime : String,
+    val UserPhone : String,
+    val WaitHeadcount : Int,
     val WaitSeat : String,
-    val WaitisAccepted : Boolean
-): Serializable
+):Serializable
 
-data class Customer(
-    val waitingNum:Int,
-    val userPhone:String,
-    val headCount:Int,
-    val keyword:String,
-    val callTime:String
-)
+data class WaitingInfo(
+    val message:String,
+    val waitTime : String
+):Serializable
 
 data class resPhNum(
     val resPhNum:String
